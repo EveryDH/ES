@@ -1,7 +1,7 @@
 package learn_es.learn_es.util;
 
 import learn_es.learn_es.model.ContentBean;
-import learn_es.learn_es.model.pdfFile;
+import learn_es.learn_es.model.PdfFile;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
@@ -28,7 +28,7 @@ public class PdfFactory {
 
 
     //获取pdf 封装对象分页文本
-    public pdfFile getPdfPC() throws Exception {
+    public PdfFile getPdfPC() throws Exception {
 
         //引用核心部件
         //内容分页解析器
@@ -46,14 +46,15 @@ public class PdfFactory {
         System.out.println("Contents of the PDF :" + handler.getPages());
 
         List<String> pages = handler.getPages();
+
         List<ContentBean> list = new LinkedList<>();
         for (int i = 0; i < pages.size(); i++) {
             ContentBean contentBean = new ContentBean();
-            contentBean.setPages(i);
+            contentBean.setPage(String.valueOf(i));
             contentBean.setContent(pages.get(i));
             list.add(contentBean);
         }
-        pdfFile pdfFile = new pdfFile();
+        PdfFile pdfFile = new PdfFile();
         pdfFile.setContentBeans(list);
 
         return pdfFile;
@@ -82,7 +83,6 @@ public class PdfFactory {
         Map<Object, Object> map = new LinkedHashMap<>();
         for(int i = 0; i < pages.size(); i ++){
             map.put("content" + i, pages.get(i));
-
         }
         System.out.println(map);
         return map;

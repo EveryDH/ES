@@ -10,7 +10,7 @@ public class ContentBean {
     private Integer id;
 
     //页码
-    private int pages;
+    private String page;
 
     // 内容
     private String content;

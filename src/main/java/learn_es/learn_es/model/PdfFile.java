@@ -8,7 +8,7 @@ import java.util.List;
  * Created by LearnDH on 2019/1/17.
  */
 @Data
-public class pdfFile {
+public class PdfFile {
 
     private Integer id;
 
