@@ -7,9 +7,6 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import java.net.InetAddress;
 
-/**
- * Created by LearnDH on 2019/1/14.
- */
 public class TransportClientFactory {
 
     //获取es 的连接

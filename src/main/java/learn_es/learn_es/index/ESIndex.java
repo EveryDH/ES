@@ -1,4 +1,4 @@
-package learn_es.learn_es.elasticsearch.index;
+package learn_es.learn_es.index;
 
 import learn_es.learn_es.model.ContentBean;
 import learn_es.learn_es.model.PdfFile;
@@ -24,19 +24,15 @@ import java.util.UUID;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
-/**
- * Created by LearnDH on 2019/1/14.
- */
+
 public class ESIndex {
 
     public static void main(String[] args) throws Exception {
 
         addBulk();
-
-//        addDoc1();
     }
 
-
+    //批量存储
     public static TransportClient addBulk() throws Exception {
 
         //时间日期
@@ -70,14 +66,8 @@ public class ESIndex {
         })      .setBulkActions(100)
                 .setConcurrentRequests(0)
                 .build();
-/*
-        抽出来的方法使用
-        XContentBuilder mapping = ESMapping.getMapping();
-        String json = Strings.toString(mapping);
 
-*/
-
-        //获取pdf整个对象的方法
+        //获取pdf整个对象
         PdfFactory pdfFactory = PdfFactory.getInstance();
 
         PdfFile pdfPC = pdfFactory.getPdfPC();
@@ -90,7 +80,7 @@ public class ESIndex {
                     .field("fileName","科技")
                     .field("pages",  bean.getPage())
                     .field("content",  bean.getContent())
-//                    .field("date", dateFormat.format(now))
+                    .field("date", dateFormat.format(now))
                 .endObject()));
         }
         bulkProcessor.flush();
@@ -98,25 +88,4 @@ public class ESIndex {
         client.admin().indices().prepareRefresh().get();
         return client;
         }
-
-
-
-
-    //单个索引存储
-/*
-    public static TransportClient addDoc1() throws Exception {
-        TransportClient client = TransportClientFactory.getInstance().getClient();
-        XContentBuilder mapping = ESMapping.getMapping();
-        String json = Strings.toString(mapping);
-
-        IndexRequestBuilder indexRequestBuilder = client.prepareIndex("learn_index", "lean");
-        IndexResponse response = indexRequestBuilder.setSource(json, XContentType.JSON).get();
-
-        return client;
-    }
-*/
-
-
-
-
 }

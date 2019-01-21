@@ -5,14 +5,13 @@ import learn_es.learn_es.model.PdfFile;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.pdf.PDFParser;
+import org.apache.tika.sax.BodyContentHandler;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 
-/**
- * Created by LearnDH on 2019/1/14.
- */
+
 public class PdfFactory {
 
     private PdfFactory() {
@@ -81,7 +80,7 @@ public class PdfFactory {
         ContentBean content = new ContentBean();
         List<String> pages = handler.getPages();
         Map<Object, Object> map = new LinkedHashMap<>();
-        for(int i = 0; i < pages.size(); i ++){
+        for (int i = 0; i < pages.size(); i++) {
             map.put("content" + i, pages.get(i));
         }
         System.out.println(map);
@@ -89,28 +88,26 @@ public class PdfFactory {
     }
 
 
-
-
-
     //获取pdf的纯文本
-//    public String getPdfWord() throws Exception {
-//
-//        //引用核心部件
-//        //内容解析器
-//        BodyContentHandler handler = new BodyContentHandler();
-//
-//        Metadata metadata = new Metadata();
-//        FileInputStream inputstream = new FileInputStream(new File("D:/Work/Test/万科Ａ：关于股东A股股份解除质押的公告.PDF"));
-//        ParseContext pcontext = new ParseContext();
-//
-//        //执行解析pdf
-//        PDFParser pdfparser = new PDFParser();
-//        pdfparser.parse(inputstream, handler, metadata,pcontext);
-//
-//        //pdf解析后的字符串
-//        System.out.println("Contents of the PDF :" + handler.toString());
-//        String pdf = handler.toString();
-//        return pdf;
-}
+    public String getPdfWord() throws Exception {
 
+        //引用核心部件
+        //内容解析器
+        BodyContentHandler handler = new BodyContentHandler();
+
+        Metadata metadata = new Metadata();
+        FileInputStream inputstream = new FileInputStream(new File("D:/Work/Test/万科Ａ：关于股东A股股份解除质押的公告.PDF"));
+        ParseContext pcontext = new ParseContext();
+
+        //执行解析pdf
+        PDFParser pdfparser = new PDFParser();
+        pdfparser.parse(inputstream, handler, metadata, pcontext);
+
+        //pdf解析后的字符串
+        System.out.println("Contents of the PDF :" + handler.toString());
+        String pdf = handler.toString();
+        return pdf;
+    }
+
+}
 
